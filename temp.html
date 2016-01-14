@@ -1,0 +1,209 @@
+<html>
+<head>
+<title>calculator</title>
+</head>
+<body>
+<script>
+/*for(var i=0;i<10;i++)
+{
+    var btn = document.createElement("BUTTON");
+btn.id=i;
+btn.innerHTML=i;
+btn.setAttribute("onclick","display(i)");
+//btn.onclick=display(i);
+//btn.addEventListener("click", function(){console.log(btn);},false);
+//btn.setAttribute("onclick",);
+//console.log(btn);
+    document.body.appendChild(btn);
+//document.getElementById(i).onclick=display(i);
+
+}*/
+</script>
+
+
+<p id="on"></p>
+<p id="pr">here</p>
+<p id="pos">here</p>
+<input type="text" id="expr" onkeyup="check()" autofocus></br>
+
+<button type="button" id="one" onclick=display(1)>1</button>
+<button type="button" id="one" onclick=display(2)>2</button>
+<button type="button" id="one" onclick=display(3)>3</button>
+<button type="button" id="one" onclick=display2("+")>+</button>
+<button type="button" id="one" onclick=display2("*")>*</button><br>
+<button type="button" id="one" onclick=display(4)>4</button>
+<button type="button" id="one" onclick=display(5)>5</button>
+<button type="button" id="one" onclick=display(6)>6</button>
+<button type="button" id="one" onclick=display2("-")>-</button>
+<button type="button" id="one" onclick=display2("/")>/</button><br>
+<button type="button" id="one" onclick=display(7)>7</button>
+<button type="button" id="one" onclick=display(8)>8</button>
+<button type="button" id="one" onclick=display(9)>9</button><button type="button" id="one" onclick=display(0)>0	</button> 
+<button type="button" id="one" onclick=cal()>=</button>
+<p id="a"> Hello!!</p>
+<p id="ss"></p>
+
+<script>
+
+function display(xxx)
+{
+	var x = document.getElementById("expr");
+	x.value=x.value.concat(xxx.toString());
+	document.getElementById("expr").focus();
+}
+
+function display2(xxx)
+{
+	var x = document.getElementById("expr");
+	x.value=x.value.concat(xxx);
+}
+
+function check() 
+{
+	var x = document.getElementById("expr");
+	var res=x.value.split("");
+	var t=res[res.length-1];
+
+	if(t<='9' && t>='0')
+	{
+	}
+	else if(t=='*' || t=='/' || t=='+' ||t=='-' || t=='(' || t==')')
+	{
+	}
+	else
+	{
+	x.value = x.value.substring(0, x.value.length - 1);
+	}
+}
+
+
+
+function cal()
+{
+var x=document.getElementById("expr");
+
+//var arr=x.split(/	/);
+
+
+//var separators = [' ', '\\\+', '-', '\\\(', '\\\)', '\\*', '/'];
+//console.log(separators.join('|'));
+//var arr = x.value.split(new RegExp(separators.join('|'), 'g'));
+
+var sp=x.value.split("");
+var spi=0;
+var len=x.value.length;
+var arr=[];
+var tt=0;
+var j=0;
+arr[j]=sp[spi];spi++;
+do
+{
+		if(!isNaN(sp[spi]))
+		{
+			if(isNaN(sp[spi-1]))
+			{	j++;
+				arr[j]=sp[spi];}
+			else
+			{	arr[j]=arr[j].toString()+sp[spi].toString();}
+		}
+		else
+		{	j++;
+			arr[j]=sp[spi];}
+	spi++;
+}
+while(spi<len);
+
+// infix to postfix
+var temp;var operator=[];var final=[];
+var aa=arr.length;
+for(var i=0;i<aa;i++)
+{
+	temp=parseInt(arr[i]);
+	if(!isNaN(arr[i]))
+	{
+		final.push(arr[i]);
+	}
+	else
+	{
+		if(arr[i]=='(')
+		{	operator.push(arr[i]);
+		}
+		else if(arr[i]==')')
+		{	var tt=operator.pop();
+			while(tt!='(')
+			{
+			final.push(tt);
+			tt=operator.pop();
+			}
+		}
+		else
+		{
+	if(operator.length <1)
+	{
+	operator.push(arr[i]);
+	console.log(arr[i]);
+	}
+	else
+	{
+		while(prio(arr[i]) < prio(operator[operator.length-1]))
+				{
+				final.push(operator.pop());
+				}
+operator.push(arr[i]);
+	}
+			
+	}
+	}
+}
+while(operator.length>0)
+{
+final.push(operator.pop());
+}
+function prio(a)
+{
+if(a=='(')
+return 0;
+else if(a=='+' || a=='-')
+return 1;
+else if(a=='*' || a== '/')
+return 2;
+}
+
+
+
+//postfix evaluation
+var i=0;
+var ll=final.length;
+if(!isNaN(final[i]))
+	{
+		stack.push(arr[i]);
+	}
+else
+{
+	if(final[i]='+')
+	{
+	var ax1=stack.pop();
+	var ax2=stack.pop();
+	var ax=ax1+ax2;
+	stack.push(ax);
+	}
+}
+
+
+
+
+
+
+
+arr.toString();
+    document.getElementById("pr").innerHTML = arr;
+final.toString();
+    document.getElementById("pos").innerHTML = final;;
+
+}
+	var s={ firstname:"abhi", lastname:"garg" };
+	document.getElementById("ss").innerHTML=s["lastname"];
+</script>
+
+</body>
+</html>
